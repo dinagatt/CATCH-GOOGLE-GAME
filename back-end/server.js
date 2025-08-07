@@ -5,7 +5,6 @@ import {NumberUtility} from "../core/utility/number-utility.js";
 const numberUtility = new NumberUtility();
 const game = new GameEntity(numberUtility);
 
-/*const port = 8080;*/
 const wss = new WebSocketServer({port: 8080});
 
 function createDTO() {
