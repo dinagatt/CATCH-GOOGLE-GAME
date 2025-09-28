@@ -1,6 +1,9 @@
 # Small, modern base
 FROM node:20-alpine
 
+# Use the exact pnpm you declared. Enable pnpm globally as root (creates /usr/local/bin/pnpm)
+RUN corepack enable && corepack prepare pnpm@10.13.1 --activate
+
 # Security: create a non-root user/group
 RUN addgroup -S appgrp && adduser -S app -G appgrp
 
@@ -10,9 +13,6 @@ RUN chown app:appgrp /app
 
 # Drop to non-root early
 USER app
-
-# Use the exact pnpm you declared
-RUN corepack enable && corepack prepare pnpm@10.13.1 --activate
 
 # Copy only manifests first for better caching
 COPY --chown=app:appgrp package.json pnpm-lock.yaml* ./
